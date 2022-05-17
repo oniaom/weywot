@@ -72,7 +72,7 @@ Finally you can supersede the boot order and choose to boot Windows or Pop!_OS b
 This is the simplest case. Each operating system is installed separately on its own drive. This requires a minimum of two drives (obviously) and the order of installation does not matter. It is *advisable* to only have one drive installed at a time of installing each OS, so that you avoid confusion. However with Pop!_OS not using **systemd-boot** rather than **grub**, there is no danger of misplacing the boot loader, so both drives can be connected while installing Pop!_OS, just make sure you select only the drive you want Pop!_OS installed before you install Pop!_OS.
 
 ### 2.1 OS installation
-Install each OS to its onwn drive. At this point you can boot each OS by selectig the boot device from your BIOS.
+Install each OS to its own drive. At this point you can boot each OS by selecting the boot device from your BIOS.
 At this point Pop!_OS may **or** many **not** provide you with a **menu**. But there is one:
 
 With Pop!_OS selected to boot, when your system shows the manufacturers logo (i.e. during POST), you **spam** or **hold** the **spacebar**. This will bring up the **menu**. This menu does **not** include an option for Windows (yet).
@@ -138,11 +138,11 @@ See my video here: https://www.youtube.com/watch?v=Fw3fQQmlXEs
 
 If you're installing on a fresh drive, installing Pop!_OS first is the easiest option. Follow these steps to get a **dual boot menu**.
 
-1. Install Pop!_OS as per normal. You can partition the drive before installation and do a custom installation. This will have the space for Windows alocated at this point and you do not need to move and resize partitions after. But you may end up without a recovery partition. Practice, see what workds for you. 
+1. Install Pop!_OS as normal. You can partition the drive before the installation and do a custom installation. This will have the space for Windows allocated at this point and you do not need to move and resize partitions afterwards. But you may end up without a recovery partition. Practice, see what works for you.
 2. If you installed the default way, **do not reboot**.
-3. Start ```gparted``` and resize/move as required to make space for Windows. The Windows installer will have to find empty space to install to. You can format that space to NTFS or leave it unformatted. If formatted, you get the benefit of Windows **not**creating the smaller partitions and as such you can then adjust space between Pop and Windows. If you don't format, Windows will create two more smaller partitions which are impossible to move and as such you cannot adjust the space afterwards. See the video with formatting [here](https://www.youtube.com/watch?v=Fw3fQQmlXEs) and without formatting [here](https://www.youtube.com/watch?v=Fw3fQQmlXEs).
-4. Start the Windows installation, and select the empty space to install to. Windows will **by default** install its EFI folder in the pre-existing EFI partition that Pop!_OS uses. This means that all EFI files will now be in the same place as required for systemd-boot to show Windwos in the **menu**. 
-5. Uppon reboot (Windows requires several) you will need to manually select Windows. Either fire up the menu and make Windows default (see introduction), or hold **w** on every reboot, or make Windows the default in your bios at this stage.
+3. Start ```gparted``` and resize/move as required to make space for Windows. The Windows installer will have to find empty space to install to. You can format that space to NTFS or leave it unformatted. If formatted, you will get the benefit of Windows **not** creating the smaller partitions and as such you can then adjust space between Pop and Windows. If you don't format, Windows will create two more smaller partitions which are impossible to move and as such you cannot adjust the space afterwards. See the video with formatting [here](https://www.youtube.com/watch?v=Fw3fQQmlXEs) and without formatting [here](https://www.youtube.com/watch?v=Fw3fQQmlXEs).
+4. Start the Windows installation, and select the empty space to install to. Windows will **by default** install its EFI folder in the pre-existing EFI partition that Pop!_OS uses. This means that all EFI files will now be in the same place as required for systemd-boot to show Windows in the **menu**. 
+5. Upon reboot (Windows requires several) you will need to manually select Windows. Either fire up the menu and make Windows default (see introduction), hold **w** on every reboot, or make Windows the default in your bios at this stage.
 6. If you already have Pop!_OS as your only OS and want to install Windows, you will need to **boot from USB** and start at **step 3** above.
 7. Once the Windows installation is complete, adjust your boot order in the bios to Pop!_OS, and use the **menu** as required.
 
@@ -154,7 +154,7 @@ If you start with a clean drive, I would strongly suggest installing Pop!_OS fir
 
 ##### 3.2.1.1. Install Windows with **planning** for Pop!_OS (hard and redundant as you should install Pop first)
 
-All the **planning** is, is to install Windows with a **larger** EFI partition so that you can use it also for Pop!_OS. Windows's EFI partition is by default only 100MB and it is as a result too small for more than OS to store its EFI files. If you make this larger, say 512MB (I would advise 1GB for extra space), you can then use this partition for all your OS's. You can do that following [this guide here](https://www.ctrl.blog/entry/how-to-esp-windows-setup.html). 
+All **planning** is, is to install Windows with a **larger** EFI partition so that you can use it for Pop!_OS too. Windows's EFI partition is by default only 100MB and it is as a result too small for more than one OS to store its EFI files. If you make this larger, say 512MB (I would advise 1GB for extra space), you can then use this partition for all your OSs. You can do that following [this guide here](https://www.ctrl.blog/entry/how-to-esp-windows-setup.html). 
 
 Once you have Windows installed with a large EFI partition you can install Pop!_OS. Simple steps include:
 1. Boot from Live USB.
@@ -172,7 +172,7 @@ Here you will end up with two separate EFI partitions and as such the procedure 
 1. Install Windows as normal
 2. Boot from Live USB
 3. Make space for Pop!_OS. You will need two* partition, a 512MB FAT32 partition and the rest as ext4 (or use as many partitions as you want for your custom installation). *You can addd a 4096MB FAT32 partition for the recovery (this is recommended but not required)
-4. Select the 512MB FAT32 partition as ```/boot/efi``` partition and the rest as your ```/``` partition (or any other layout you want, but this is the minimum). If you added a partition for Recovery, then select it, set it to custom and type ```/recovery``` for the mount point (make sure fat32 is selected).
+4. Select the 512MB FAT32 partition as ```/boot/efi``` partition and the rest as your ```/``` partition (or any other layout you want, but this is the minimum). If you added a partition for Recovery, then select it, set it to custom, and type ```/recovery``` for the mount point (make sure fat32 is selected).
 5. Install.
 6. Now you have two installations each with its own EFI partition. 
 7. Follow the process used for dual booting from two drives to make your menu include **Windows**.
@@ -200,10 +200,10 @@ sda             8:0    0 119.2G  0 disk
 ├─sda5          8:1    0   498M  0 part  /boot/efi
 ├─sda6          8:3    0 110.8G  0 part  / 
 ~~~
-Note: My Pop!_OS installation is on ```/dev/sda5``` and ```/dev/sda6```. I do **not** have a recovery, **nor** a swap partition as I don't use these, but your installation might be different. The important part here is ```/dev/sda1``` as it has **100MB** size and looks like the EFI partition of Windows.
+Note: My Pop!_OS installation is on ```/dev/sda5``` and ```/dev/sda6```. I do **not** have a recovery or a swap partition as I don't use these, but your installation might be different. The important part here is ```/dev/sda1``` as it has **100MB** size and looks like the EFI partition of Windows.
 
 4. Mount the EFI partition of Windows. Typically you can type ```sudo mount /dev/sda1 /mnt```. 
-5. Check that this partition actually has the EFI files of Windows: ```cd /mnt``` and then ```ls``` and look for a folder ```EFI``` in there.
+5. Check that this partition actually has the EFI files of Windows: ```ls /mnt``` and look for a folder ```EFI``` in there.
 6. Copy the EFI files of Windows to Pop!_OS's EFI partition. The EFI files of Windows are in the folder ```/mnt/EFI/Microsoft```. You will need the **complete** ```Microsoft``` folder copied in ```/boot/efi/EFI```. In detail:
 ~~~
 otheos@pop-os:~$ sudo mount /dev/sda1 /mnt
@@ -236,7 +236,7 @@ You can copy Windows' boot files to the new ESP from Windows. The steps are:
 1. Give Pop's ESP a drive letter (this will be changed after some more work is done)
 2. Run the ```bcdboot``` command
 
-For the first part, you cannot do it using Windows Disk Management, so you will need the command line (as administrator)
+For the first part, you can't do it using Windows Disk Management, so you will need the command line (as administrator)
 
 ~~~
 diskpart
@@ -253,4 +253,4 @@ Then issue the command:
 bcdboot c:\Windows /s y:
 ~~~
 
-That's it. Windows now copied the files to the new ESP.  The best part about this method is now Windows doesn't use the old ESP ever again, so techincally you can remove it. (Work in progress as this has so far worked erratically). 
+That's it. Windows now copied the files to the new ESP.  The best part about this method is now Windows doesn't use the old ESP ever again, so techincally you can remove it. (Work in progress as this has so far worked erratically).
